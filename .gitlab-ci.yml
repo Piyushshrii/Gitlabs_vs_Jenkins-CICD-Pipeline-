@@ -1,0 +1,80 @@
+stages:
+  - prepare
+  - checkout
+  - authenticate
+  - build
+  - test
+  - push
+  - deploy
+
+variables:
+  WORKSPACE: "/home/gitlab-runner/app"
+  DOCKER_IMAGE: "piyushh69/weather-app"
+  DOCKER_TAG: "latest"
+  TEST_RESULTS_DIR: "$WORKSPACE/Weather-app/test-results"
+
+default:
+  tags:
+    - gitlab-runner-redhat-new
+
+before_script:
+  - docker --version
+  - node --version
+  - npm --version
+
+prepare_workspace:
+  stage: prepare
+  script:
+    - sudo rm -rf $WORKSPACE
+    - mkdir -p $WORKSPACE
+
+checkout_code:
+  stage: checkout
+  script:
+    - rm -rf $WORKSPACE/*
+    - git clone https://github.com/Piyushshrii/javascript-projects.git $WORKSPACE
+
+authenticate_docker:
+  stage: authenticate
+  script:
+    - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
+build_image:
+  stage: build
+  script:
+    - cd $WORKSPACE
+    - docker build -t $DOCKER_IMAGE:$DOCKER_TAG -f Weather-app/Dockerfile Weather-app/
+
+install_dependencies:
+  stage: test
+  script:
+    - cd $WORKSPACE/Weather-app
+    - if [ -f package.json ]; then npm install --silent; else exit 1; fi
+
+run_tests:
+  stage: test
+  script:
+    - cd $WORKSPACE/Weather-app
+    - mkdir -p $TEST_RESULTS_DIR  # Ensure test-results directory exists
+    - if [ -f package.json ]; then npm test || true; fi
+    - mkdir -p $CI_PROJECT_DIR/test-results
+    - cp -v $TEST_RESULTS_DIR/results.xml $CI_PROJECT_DIR/test-results/results.xml || echo "No test results found!"
+  artifacts:
+    when: always
+    paths:
+      - test-results/results.xml
+    reports:
+      junit: test-results/results.xml
+
+push_to_dockerhub:
+  stage: push
+  script:
+    - docker push $DOCKER_IMAGE:$DOCKER_TAG
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - docker rm -f weather-app-container || true
+    - docker run -d -p 80:80 --name weather-app-container $DOCKER_IMAGE:$DOCKER_TAG #port forwarding to 80 with detach mode..
