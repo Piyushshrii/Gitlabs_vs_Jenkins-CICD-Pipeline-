@@ -1,4 +1,4 @@
-# Weather App CI/CD Deployment
+# Simple JS Weather App CI/CD Deployment
 
 This repository provides a complete CI/CD pipeline setup for deploying a **Weather App** using **GitLab CI/CD** and **Jenkins**. The pipelines automate building, testing, pushing, and deploying the application using **Docker**.
 
