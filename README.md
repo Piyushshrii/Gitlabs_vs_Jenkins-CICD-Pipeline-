@@ -158,8 +158,8 @@ pipeline {
 
 ### **Jenkins**
 1. Add `Jenkinsfile` to the repository.
-2. Configure a Jenkins pipeline job pointing to your repo.
-3. Setup DOCKER_USER AND DOCKER_PASS environmnet variable to global credentials
+2. Configure a Jenkins pipeline job pointing to your repo
+3. Setup DOCKER_USER AND DOCKER_PASS environmnet variable to global credentials and set id as 'jenkins-server-id'
 4. Dont forget to docker & jenkins to usergroup
 5. Run the job to execute the pipeline.
 
