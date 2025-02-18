@@ -35,7 +35,7 @@ stages:
 
 variables:
   WORKSPACE: "/home/gitlab-runner/app"
-  DOCKER_IMAGE: "piyushh69/weather-app"
+  DOCKER_IMAGE: "piyushh69/weather-app"     #use your docker username 
   DOCKER_TAG: "latest"
   TEST_RESULTS_DIR: "$WORKSPACE/Weather-app/test-results"
 
@@ -150,14 +150,18 @@ pipeline {
 
 ## 🛠 How to Use
 ### **GitLab CI/CD**
-1. Add `.gitlab-ci.yml` to the root of your repository.
+1. Add `.gitlab-ci.yml` to the root of your repository create a new project in gitlabs.
 2. Ensure GitLab Runner is properly set up replace your configured runner name in the script yaml file.
-3. Push changes to trigger the pipeline.
+3. Setup DOCKER_USER AND DOCKER_PASS environmnet variable from project CICD setting
+4. Dont forget to docker to usergroup
+5. Push changes to trigger the pipeline.
 
 ### **Jenkins**
 1. Add `Jenkinsfile` to the repository.
 2. Configure a Jenkins pipeline job pointing to your repo.
-3. Run the job to execute the pipeline.
+3. Setup DOCKER_USER AND DOCKER_PASS environmnet variable to global credentials
+4. Dont forget to docker & jenkins to usergroup
+5. Run the job to execute the pipeline.
 
 ---
 
