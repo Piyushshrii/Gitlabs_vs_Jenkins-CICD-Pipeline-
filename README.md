@@ -151,7 +151,7 @@ pipeline {
 ## 🛠 How to Use
 ### **GitLab CI/CD**
 1. Add `.gitlab-ci.yml` to the root of your repository.
-2. Ensure GitLab Runner is properly set up.
+2. Ensure GitLab Runner is properly set up replace your configured runner name in the script yaml file.
 3. Push changes to trigger the pipeline.
 
 ### **Jenkins**
