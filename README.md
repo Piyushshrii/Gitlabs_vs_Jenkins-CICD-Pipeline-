@@ -35,7 +35,7 @@ stages:
 
 variables:
   WORKSPACE: "/home/gitlab-runner/app"
-  DOCKER_IMAGE: "piyushh69/weather-app"     #use your docker username 
+  DOCKER_IMAGE: "piyushh69/weather-app"   #use your docker username 
   DOCKER_TAG: "latest"
   TEST_RESULTS_DIR: "$WORKSPACE/Weather-app/test-results"
 
@@ -85,7 +85,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "piyushh69/weather-app"
+        DOCKER_IMAGE = "piyushh69/weather-app"   #use your docker username 
         DOCKER_TAG = "latest"
     }
 
@@ -166,6 +166,7 @@ pipeline {
 ---
 
 ## 🎯 Conclusion
+Voilaaa! Access the application on the public ip of your server with port 80
 This setup provides an **automated, containerized CI/CD solution** for deploying your Weather App using GitLab CI/CD or Jenkins. Choose the one that fits your workflow! 🚀
 
 **Feel free to fork, modify, and contribute!** 😊
